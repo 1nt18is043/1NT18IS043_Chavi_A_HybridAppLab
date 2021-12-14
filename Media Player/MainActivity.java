@@ -15,13 +15,17 @@ public class MainActivity extends AppCompatActivity {
     int forwardtime = 5000;
     int backwardtime = 5000;
     MediaPlayer mediaPlayer, mediaPlayernew;
+    
+    MediaPlayer createMedia(){
+        mediaPlayernew = MediaPlayer.create(this, R.raw.ipl);
+        return  mediaPlayernew;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mediaPlayer = MediaPlayer.create(this,R.raw.ipl);
-        mediaPlayernew = MediaPlayer.create(this, R.raw.ipl);
+        mediaPlayer = createMedia();
         TextView songtitle = findViewById(R.id.text2);
         songtitle.setText("Ipl Song");
 
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Stopping Song", Toast.LENGTH_SHORT).show();
                 mediaPlayer.stop();
-                mediaPlayer=mediaPlayernew;
+                mediaPlayer = createMedia();
             }
         });
 
@@ -80,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Restarting Song", Toast.LENGTH_SHORT).show();
-                mediaPlayer.seekTo(0);
+                mediaPlayer.reset();
+                mediaPlayer = createMedia();
                 mediaPlayer.start();
             }
         });
